@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.annie.flixster.adapter.MovieAdapter;
-import com.annie.flixster.models.Movie;
+import com.annie.flixster.models.MovieActivity;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String NOWPLAYINGURL = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
     public static final String TAG = "MAINACTIVITY";
 
-    List<Movie> movies;
+    List<MovieActivity> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, results.toString());
-                    movies.addAll(Movie.fromJsonArray(results));
+                    movies.addAll(MovieActivity.fromJsonArray(results));
                     movieAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     Log.e(TAG, "ERROR", e);

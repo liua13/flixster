@@ -12,17 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.annie.flixster.R;
-import com.annie.flixster.models.Movie;
+import com.annie.flixster.models.MovieActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     Context context;
-    List<Movie> movies;
+    List<MovieActivity> movies;
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public MovieAdapter(Context context, List<MovieActivity> movies) {
         this.context = context;
         this.movies = movies;
     }
@@ -38,7 +40,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     // populating data into view
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Movie movie = movies.get(position);
+        MovieActivity movie = movies.get(position);
         holder.bind(movie);
     }
 
@@ -60,14 +62,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvOverview = itemView.findViewById(R.id.tvOverview);
         }
 
-        public void bind(Movie movie) {
+        public void bind(MovieActivity movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
             String imageURL = movie.getPosterPath();
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 imageURL = movie.getBackdropPath();
             }
-            Glide.with(context).load(imageURL).into(ivPoster);
+            int radius = 30;
+            int margin = 10;
+            Glide.with(context).load(imageURL).transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
         }
     }
 
